@@ -25,13 +25,13 @@ export const callbackMethod: (
 	};
 };
 
-export const loginMethod: (provider: string, scope: string[]) => RequestHandler<OAuthSession> = (
+export const loginMethod: (
 	provider: string,
-	scope: string[]
-) => {
+	options: { scope?: string[]; session?: boolean }
+) => RequestHandler<OAuthSession> = (provider: string, options = { scope: [], session: false }) => {
 	return async (request: ServerRequest) => {
 		const response = new OAuthResponse(request);
-		passport.authenticate(provider, { scope: scope, session: false })(request, response);
+		passport.authenticate(provider, options)(request, response);
 		return response.send();
 	};
 };
