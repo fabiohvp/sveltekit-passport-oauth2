@@ -53,6 +53,7 @@
 	"dependencies": {
 		"@lukeed/uuid": "^2.0.0",
 		"cookie": "^0.4.1",
-		"passport": "^0.4.1"
+		"passport": "^0.4.1",
+		"ts-lint": "^4.5.1"
 	}
 }
