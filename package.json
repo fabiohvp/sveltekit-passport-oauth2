@@ -1,6 +1,6 @@
 {
 	"name": "sveltekit-passport-oauth",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"main": "lib/index.mjs",
 	"types": "lib/index.d.ts",
 	"type": "module",
