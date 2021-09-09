@@ -1,8 +1,7 @@
-const { readdirSync, rename } = require('fs');
-const { resolve } = require('path');
+import { readdirSync, rename } from 'fs';
 
 // Get path to image directory
-const lib = resolve(__dirname, 'lib');
+const lib = './lib';
 
 // Get an array of the files inside the folder
 const files = readdirSync(lib);
@@ -10,6 +9,6 @@ const files = readdirSync(lib);
 // Loop through each file that was retrieved
 files.forEach((file) => {
 	if (file.endsWith('.js')) {
-		rename(lib + `/${file}`, lib + `/${file.replace('.js', '.cjs')}`, (err) => console.log(err));
+		rename(lib + `/${file}`, lib + `/${file.replace('.js', '.mjs')}`, (err) => console.log(err));
 	}
 });
