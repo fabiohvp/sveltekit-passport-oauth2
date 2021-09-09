@@ -1,38 +1,78 @@
-# create-svelte
+# sveltekit-passport-oauth
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+Simple way to use passport (with OAuth authentication) in your svelte-kit projects
 
-## Creating a project
+## Configure hooks.ts
+The example bellow uses Google but it should work for other strategies (also tested with facebook).
 
-If you're seeing this, you've probably already done this step. Congrats!
+```ts
+export const handle = sequence(
+	OAuthPassportHandler([
+		{
+			callbackURL: '/auth/google/callback.json',
+			loginURL: '/auth/google',
+			strategy: new GoogleStrategy(
+			{
+				callbackURL: 'http://localhost:3000/auth/google/callback.json',
+				clientID: 'use-your-google-client-id',
+				clientSecret: 'use-your-google-client-secret',
+				passReqToCallback: true
+			},
+			OAuthCreateCookie())
+		}
+	]),
+	addUserToRequest
+);
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+//this is optional (just an example of how to add the user info to request)
+async function addUserToRequest({ request, resolve }: OAuthHandleInput) {
+	const cookies = cookie.parse(request.headers.cookie || '');
+	const cookieId = cookies[DefaultCookieName];
+	if (cookieId) {
+		request.locals = Database[cookieId]; //change this to retrieve from database
+	}
+	const response = await resolve(request);
+	return response;
+}
 
-# create a new project in my-app
-npm init svelte@next my-app
+//this is optional (it will allow you to use session in .svelte file) like:
+//<script lang="ts">
+//	import {session} from '$app/stores';
+//	session.subscribe(console.log) //this will print user data when authenticated
+//</script>
+export function getSession(request: ServerRequest<Locals>): Locals {
+	return request.locals;
+}
 ```
 
-> Note: the `@next` is temporary
+## Create authentication routes
 
-## Developing
+```ts
+//login.ts
+//first parameter is the strategy name
+//second paramater are passport options (usually you'll only use the "scope" property)
+export const get = loginMethod('google', { scope: ['email', 'profile'] });
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+//callback.ts
+//first parameter is the strategy name
+//second parameter is a callback in case you want to redirect. If you don't pass a callback the response will
+//be only headers to set cookie to maxAge=0 and an empty body
+export const get = callbackMethod(
+	'google',
+	(request: ServerRequest<OAuthSession>, response: OAuthResponse) => {
+		if (request.locals.authenticated) {
+			Database[request.locals.cookieId] = request.locals; //change this to save in database
+			return response.redirect('/');
+		}
+		return response.redirect('/about');
+	}
+);
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+//logout.ts
+//first parameter is the cookieName, if you pass 'undefined' it will use the default
+//second parameter is a callback in case you want to redirect, if you don't pass a callback the response will
+//be only headers to set cookie to maxAge=0 and an empty body
+export const get = logoutMethod(undefined, (request, response) => {
+	return response.redirect('/');
+});
 ```
-
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
