@@ -1,6 +1,6 @@
 # sveltekit-passport-oauth
 
-Simple way to use passport (with OAuth authentication) in your svelte-kit projects
+Easy way to use passport (with OAuth authentication) in your svelte-kit projects
 
 ## Configure hooks.ts
 The example bellow uses Google but it should work for other strategies (also tested with facebook).
