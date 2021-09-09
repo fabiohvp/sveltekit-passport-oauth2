@@ -1,7 +1,7 @@
 {
 	"name": "sveltekit-passport-oauth",
 	"version": "0.0.8",
-	"main": "lib/index.cjs",
+	"main": "lib/index.mjs",
 	"types": "lib/index.d.ts",
 	"author": "Fabiohvp",
 	"license": "ISC",
