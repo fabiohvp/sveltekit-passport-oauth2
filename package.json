@@ -5,6 +5,9 @@
 	"types": "lib/index.d.ts",
 	"author": "Fabiohvp",
 	"license": "ISC",
+	"files": [
+		"lib/**/*"
+	],
 	"scripts": {
 		"build": "tsc",
 		"lint": "tslint -p tsconfig.json",
