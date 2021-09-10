@@ -56,7 +56,7 @@ export const get = loginMethod('google', { scope: ['email', 'profile'] });
 //callback.ts
 //first parameter is the strategy name
 //second parameter is a callback in case you want to redirect. If you don't pass a callback the response will
-//be only headers to set cookie to maxAge=0 and an empty body
+//be only headers to set cookie to maxAge={DefaultCookieName} and an empty body
 export const get = callbackMethod(
 	'google',
 	(request: ServerRequest<OAuthSession>, response: OAuthResponse) => {
@@ -69,7 +69,7 @@ export const get = callbackMethod(
 );
 
 //logout.ts
-//first parameter is the cookieName, if you pass 'undefined' it will use the default
+//first parameter is the cookieName, if you pass 'undefined' it will use the {DefaultCookieName}
 //second parameter is a callback in case you want to redirect, if you don't pass a callback the response will
 //be only headers to set cookie to maxAge=0 and an empty body
 export const get = logoutMethod(undefined, (request, response) => {
