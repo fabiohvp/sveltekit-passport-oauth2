@@ -18,7 +18,8 @@ export const handle = sequence(
 				clientSecret: 'use-your-google-client-secret',
 				passReqToCallback: true
 			},
-			OAuthCreateCookie())
+			OAuthCreateCookie(/*cookieName = DefaultCookieName, cookieSettings?: CookieSettings*/))
+
 		}
 	]),
 	addUserToRequest
