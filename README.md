@@ -1,4 +1,4 @@
-# sveltekit-passport-oauth
+# sveltekit-passport-oauth2
 
 Easy way to use passport (with OAuth2 authentication) in your svelte-kit projects
 
