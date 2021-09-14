@@ -1,6 +1,6 @@
 {
 	"name": "sveltekit-passport-oauth2",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"main": "./lib/cjs/index.js",
 	"module": "./lib/esm/index.js",
 	"types": "./lib/cjs/index.d.ts",
@@ -21,12 +21,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/fabiohvp/sveltekit-passport-oauth.git"
+		"url": "git+https://github.com/fabiohvp/sveltekit-passport-oauth2.git"
 	},
 	"bugs": {
-		"url": "https://github.com/fabiohvp/sveltekit-passport-oauth/issues"
+		"url": "https://github.com/fabiohvp/sveltekit-passport-oauth2/issues"
 	},
-	"homepage": "https://github.com/fabiohvp/sveltekit-passport-oauth#readme",
+	"homepage": "https://github.com/fabiohvp/sveltekit-passport-oauth2#readme",
 	"keywords": [
 		"SvelteKit",
 		"Svelte-Kit",
