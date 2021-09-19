@@ -13,8 +13,6 @@ The example bellow uses Google but it should work for other strategies (also tes
 export const handle = sequence(
 	OAuthPassportHandler([
 		{
-			callbackURL: '/auth/google/callback.json',
-			loginURL: '/auth/google',
 			strategy: new GoogleStrategy(
 			{
 				callbackURL: 'http://localhost:3000/auth/google/callback.json',
