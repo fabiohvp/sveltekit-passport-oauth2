@@ -7,25 +7,31 @@ npm install sveltekit-passport-oauth2
 ```
 
 ## Configure hooks.ts
+
 The example bellow uses Google but it should work for other strategies (also tested with facebook).
 
 ```ts
-export const handle = sequence(
-	OAuthPassportHandler([
-		{
-			strategy: new GoogleStrategy(
+import {
+	ConfigurePassportOAuth2,
+	OAuthHandleInput,
+	OAuthCreateCookie,
+	DefaultCookieName
+} from 'sveltekit-passport-oauth2';
+
+ConfigurePassportOAuth2([
+	{
+		strategy: new GoogleStrategy(
 			{
 				callbackURL: 'http://localhost:3000/auth/google/callback.json',
 				clientID: 'use-your-google-client-id',
 				clientSecret: 'use-your-google-client-secret',
 				passReqToCallback: true
 			},
-			OAuthCreateCookie(/*cookieName = DefaultCookieName, cookieSettings?: CookieSettings*/))
-
-		}
-	]),
-	addUserToRequest
-);
+			OAuthCreateCookie(/*cookieName = DefaultCookieName, cookieSettings?: CookieSettings*/)
+		)
+	}
+]);
+export const handle = sequence(addUserToRequest);
 
 //this is optional (just an example of how to add the user info to request)
 async function addUserToRequest({ request, resolve }: OAuthHandleInput) {
