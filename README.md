@@ -55,12 +55,12 @@ export function getSession(request: ServerRequest<Locals>): Locals {
 ### Create authentication routes
 
 ```ts
-//login.ts
+//routes/auth/google/index.json.ts
 //first parameter is the strategy name
 //second paramater are passport options (usually you'll only use the "scope" property)
 export const get = loginMethod('google', { scope: ['email', 'profile'] });
 
-//callback.ts
+//routes/auth/google/callback.json.ts
 //first parameter is the strategy name
 //second parameter is a callback in case you want to redirect. If you don't pass a callback the response will
 //be only headers to set cookie to maxAge={DefaultCookieSettings.maxAge} and an empty body
@@ -102,7 +102,7 @@ export const get = callbackMethod(
 	}
 );
 
-//logout.ts
+//routes/auth/google/logout.json.ts
 //first parameter is the cookieName, if you pass 'undefined' it will use the {DefaultCookieName}
 //second parameter is a callback in case you want to redirect, if you don't pass a callback the response will
 //be only headers to set cookie to maxAge=0 and an empty body
