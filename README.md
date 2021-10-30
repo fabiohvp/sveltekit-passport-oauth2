@@ -102,7 +102,7 @@ export const get = callbackMethod(
 	}
 );
 
-//routes/auth/google/logout.json.ts
+//routes/auth/logout.json.ts
 //first parameter is the cookieName, if you pass 'undefined' it will use the {DefaultCookieName}
 //second parameter is a callback in case you want to redirect, if you don't pass a callback the response will
 //be only headers to set cookie to maxAge=0 and an empty body
@@ -145,15 +145,16 @@ async function authenticate() {
 ```
 ```html
 <!--WITH REDIRECT-->
-<a href="/auth/google.json">Login</a>
-<a href="/auth/google/logout.json">Logout</a>
+<a href="/auth/google.json"rel="external"
+>Login</a>
+<a href="/auth/logout.json" rel="external">Logout</a>
 ```
 
 ```html
 <!--WITH POPUP (NO REDIRECT)-->
 {#if $session.authenticated}
 	<li>
-		<a href="/auth/google/logout.json">Logout</a>
+		<a href="/auth/logout.json" rel="external">Logout</a>
 	</li>
 {:else}
 	<li>
